@@ -1,26 +1,106 @@
-<!doctype html>
-<html>
-    <head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></head>
-    <body>
-        <div class="container">
-            <h1>Simple image search engine</h1>
-            <form method="POST" enctype="multipart/form-data">
-                <input type="file" name="query_img"><br>
-                <input type="submit">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Image Search Engine</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff; /* Light blue background color */
+            margin: 0;
+            padding: 0;
+        }
+
+        .google-container {
+            text-align: center;
+            padding: 50px;
+        }
+
+        .google-search-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .google-logo {
+            height: 60px;
+            margin-bottom: 20px;
+        }
+
+        .google-input-label {
+            background-color: #4285f4;
+            color: #fff;
+            border: none;
+            border-radius: 24px;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 16px;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            margin-right: 10px;
+        }
+
+        .google-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .google-input-label:hover {
+            background-color: #357ae8;
+        }
+
+        .google-search-button {
+            background-color: #4285f4;
+            color: #fff;
+            border: none;
+            border-radius: 24px;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Updated style for the form container to make the buttons appear on the same line */
+        .google-form {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Rest of the styles remain unchanged */
+    </style>
+</head>
+<body>
+    <div class="google-container">
+        <div class="google-search-box">
+            <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" class="google-logo" alt="Google Logo">
+            <form method="POST" enctype="multipart/form-data" class="google-form">
+                <label for="upload-file" class="google-input-label">Search by image
+                    <input type="file" name="query_img" class="google-input" id="upload-file" accept="image/*">
+                </label>
+                <button type="submit" class="google-search-button">Search</button>
             </form>
-            <h2>Query:</h2>
-            {% if query_path %}
-            <img src="{{ query_path }}" width="300px">
-            {% endif %}
-            <h2>Results:</h2>
+        </div>
+        <h2>Query:</h2>
+        {% if query_path %}
+        <img src="{{ query_path }}" class="google-query-image">
+        {% endif %}
+        <h2>Results:</h2>
+        <div class="google-results">
             {% for score in scores %}
-            <figure style="float: left; margin-right: 20px; margin-bottom: 20px;">
-                <img src="{{ score[1] }}" height="200px">
-                <figcaption>{{ score[0] }}</figcaption>
+            <figure class="google-result-figure">
+                <img src="{{ score[1] }}" class="google-result-image">
+                <figcaption class="google-result-caption">{{ score[0] }}</figcaption>
             </figure>
             {% endfor %}
         </div>
-    </body>
+    </div>
+</body>
 </html>
-
-
